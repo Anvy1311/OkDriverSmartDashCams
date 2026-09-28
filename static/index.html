@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08111f">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>okDriver | Smart CCTV Command</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230e2039%27/%3E%3Crect x=%277%27 y=%2716%27 width=%275%27 height=%279%27 rx=%271.5%27 fill=%27%2362a7ff%27 opacity=%27.6%27/%3E%3Crect x=%2713.5%27 y=%2710%27 width=%275%27 height=%2715%27 rx=%271.5%27 fill=%27%2362a7ff%27/%3E%3Crect x=%2720%27 y=%2713%27 width=%275%27 height=%2712%27 rx=%271.5%27 fill=%27%2362a7ff%27 opacity=%27.8%27/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="toast-stack" class="toast-stack" aria-live="polite"></div>
+
+  <section id="login-view" class="auth-shell">
+    <div class="auth-orbit orbit-one"></div>
+    <div class="auth-orbit orbit-two"></div>
+    <div class="auth-card">
+      <div class="brand-mark large"><span></span><span></span><span></span></div>
+      <p class="eyebrow">SMART ROAD SAFETY PLATFORM</p>
+      <h1>Command the <em>signal.</em></h1>
+      <p class="auth-copy">Unified camera intelligence, watchlist correlation, and real-time response for safer roads.</p>
+      <form id="login-form" class="stack-form">
+        <label>Operator ID<input id="login-username" name="username" autocomplete="username" placeholder="admin" required></label>
+        <label>Password<input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Password" required></label>
+        <div id="login-error" class="form-error" role="alert"></div>
+        <button class="button primary wide" type="submit"><span>Enter command center</span><b>↗</b></button>
+      </form>
+      <div class="demo-credentials"><span>DEMO ACCESS</span><button type="button" data-demo-user="admin">Admin</button><button type="button" data-demo-user="operator">Operator</button></div>
+      <p class="auth-footnote"><span class="pulse-dot"></span> Encrypted session · RBAC protected · v1.0 prototype</p>
+    </div>
+  </section>
+
+  <div id="app-view" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="sidebar-brand"><div class="brand-mark"><span></span><span></span><span></span></div><div><strong>okDriver</strong><small>COMMAND</small></div></div>
+      <div class="environment-pill"><span class="pulse-dot"></span><span>Prototype network</span><b>ONLINE</b></div>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <p class="nav-label">Workspace</p>
+        <button class="nav-item active" data-view="overview"><span class="nav-icon">⌂</span>Overview</button>
+        <button class="nav-item" data-view="cameras"><span class="nav-icon">▣</span>Camera registry<span class="nav-count" id="camera-nav-count">0</span></button>
+        <button class="nav-item" data-view="map"><span class="nav-icon">⌖</span>GIS & movement</button>
+        <button class="nav-item" data-view="events"><span class="nav-icon">◈</span>Analytics events<span class="nav-count" id="event-nav-count">0</span></button>
+        <button class="nav-item" data-view="alerts"><span class="nav-icon">!</span>Alert center<span class="nav-count alert-count" id="alert-nav-count">0</span></button>
+        <button class="nav-item" data-view="watchlist"><span class="nav-icon">◎</span>Watchlist</button>
+        <p class="nav-label nav-label-spaced">System</p>
+        <button class="nav-item" data-view="architecture"><span class="nav-icon">⌘</span>Architecture</button>
+        <a class="nav-item" href="/docs" target="_blank"><span class="nav-icon">↗</span>API documentation</a>
+      </nav>
+      <div class="sidebar-footer"><div class="operator-mini" id="sidebar-user"><span class="avatar">A</span><div><strong>Administrator</strong><small>Control room</small></div></div><button class="icon-button" id="logout-button" title="Sign out">↪</button></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="breadcrumb"><span>CONTROL ROOM</span><b>/</b><strong id="page-title">Overview</strong></div>
+        <div class="topbar-actions"><div class="global-search"><span>⌕</span><input id="global-search" placeholder="Search camera, plate, event…" autocomplete="off"><kbd id="search-kbd">Ctrl K</kbd></div><div class="connection-status"><span class="pulse-dot"></span><span id="connection-label">Connecting</span></div><button class="icon-button notification-button" id="notification-button">♢<span class="notification-dot hidden" id="notification-dot"></span></button></div>
+      </header>
+
+      <section id="view-overview" class="view active-view">
+        <div class="page-heading"><div><p class="eyebrow">LIVE OPERATIONS · <span id="last-sync">SYNCING</span></p><h2><span id="greeting">Welcome</span>, <span id="welcome-name">Administrator</span><span class="heading-accent">.</span></h2><p class="heading-copy">Here’s the current pulse of your connected road network.</p></div><div class="heading-actions"><button class="button ghost" data-view-target="cameras">＋ Onboard camera</button><button class="button primary" id="overview-simulate">＋ Simulate detection</button></div></div>
+        <div class="metric-grid">
+          <article class="metric-card accent-blue"><div class="metric-top"><span>Camera health</span><span class="metric-icon">▣</span></div><div class="metric-value" id="metric-cameras">—</div><div class="metric-bottom"><span class="trend good" id="metric-online">— online</span><span class="metric-caption">of registered sources</span></div><div class="metric-bar"><i id="camera-health-bar"></i></div></article>
+          <article class="metric-card accent-amber"><div class="metric-top"><span>Open alerts</span><span class="metric-icon">!</span></div><div class="metric-value" id="metric-alerts">—</div><div class="metric-bottom"><span class="trend danger" id="metric-critical">— critical</span><span class="metric-caption">need attention</span></div><div class="metric-spark spark-amber"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          <article class="metric-card accent-green"><div class="metric-top"><span>Events today</span><span class="metric-icon">◈</span></div><div class="metric-value" id="metric-events">—</div><div class="metric-bottom"><span class="trend good" id="metric-sources">— sources</span><span class="metric-caption">analytics connections</span></div><div class="metric-spark spark-green"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          <article class="metric-card accent-purple"><div class="metric-top"><span>Watchlist</span><span class="metric-icon">◎</span></div><div class="metric-value" id="metric-watchlist">—</div><div class="metric-bottom"><span class="trend neutral" id="metric-last-event">—</span><span class="metric-caption">last detection</span></div><div class="metric-pulse"><span></span><span></span><span></span><span></span><span></span></div></article>
+        </div>
+        <div class="dashboard-grid top-grid">
+          <article class="panel live-panel"><div class="panel-heading"><div><p class="eyebrow">LIVE WALL</p><h3>Connected cameras</h3></div><div class="panel-actions"><span class="live-indicator"><i></i> LIVE</span><button class="text-button" data-view-target="cameras">View registry ↗</button></div></div><div id="live-grid" class="live-grid"></div></article>
+          <article class="panel map-preview-panel"><div class="panel-heading"><div><p class="eyebrow">GEOSPATIAL PICTURE</p><h3>Network coverage</h3></div><button class="text-button" data-view-target="map">Open GIS ↗</button></div><div id="overview-map" class="mini-map"></div><div class="map-legend"><span><i class="legend-dot online"></i>Online</span><span><i class="legend-dot degraded"></i>Degraded</span><span><i class="legend-dot offline"></i>Offline</span><span class="map-source">Leaflet · camera metadata</span></div></article>
+        </div>
+        <div class="dashboard-grid bottom-grid">
+          <article class="panel alerts-preview"><div class="panel-heading"><div><p class="eyebrow">RESPONSE QUEUE</p><h3>Priority alerts</h3></div><button class="text-button" data-view-target="alerts">Open alert center ↗</button></div><div id="overview-alerts" class="compact-list"></div></article>
+          <article class="panel activity-panel"><div class="panel-heading"><div><p class="eyebrow">AUDIT TRAIL</p><h3>Recent activity</h3></div><button class="icon-button" id="refresh-activity" title="Refresh">↻</button></div><div id="activity-list" class="activity-list"></div></article>
+          <article class="panel feed-panel"><div class="panel-heading"><div><p class="eyebrow">SIGNAL CHECK</p><h3>Latest detection</h3></div><span class="tag green">ANPR</span></div><div id="latest-detection" class="latest-detection"><div class="detection-empty">Waiting for an analytics event…</div></div></article>
+        </div>
+      </section>
+
+      <section id="view-cameras" class="view">
+        <div class="page-heading"><div><p class="eyebrow">ASSET CONTROL · REGISTRY</p><h2>Camera registry<span class="heading-accent">.</span></h2><p class="heading-copy">Standardize heterogeneous sources, ownership, health, and storage metadata.</p></div><div class="heading-actions"><a class="button ghost" href="/api/v1/cameras/export.csv">↓ Export CSV</a><button class="button primary" id="add-camera-button">＋ Add camera</button></div></div>
+        <div class="toolbar panel"><div class="filter-search"><span>⌕</span><input id="camera-search" placeholder="Search ID, name, zone or department"></div><select id="camera-status-filter"><option value="">All health states</option><option value="ONLINE">Online</option><option value="DEGRADED">Degraded</option><option value="OFFLINE">Offline</option></select><select id="camera-protocol-filter"><option value="">All protocols</option><option value="RTSP">RTSP</option><option value="ONVIF">ONVIF</option><option value="HLS">HLS</option><option value="VENDOR_API">Vendor API</option></select><button class="button subtle" id="camera-filter-reset">Reset</button></div>
+        <div class="registry-summary"><div><strong id="registry-total">—</strong><span>registered cameras</span></div><div><strong id="registry-online">—</strong><span>online now</span></div><div><strong id="registry-sources">—</strong><span>source protocols</span></div><div><strong id="registry-gap">—</strong><span>coverage gaps</span></div></div>
+        <div id="camera-table-wrap" class="panel table-panel"><div id="camera-table" class="data-table camera-table"></div></div>
+      </section>
+
+      <section id="view-map" class="view">
+        <div class="page-heading"><div><p class="eyebrow">REGISTRY + MOVEMENT INTELLIGENCE</p><h2>GIS & movement<span class="heading-accent">.</span></h2><p class="heading-copy">Inspect source health and reconstruct an entity’s route across camera observations.</p></div><div class="heading-actions"><div class="entity-search"><span>⌕</span><input id="entity-search-input" placeholder="Trace vehicle / person" value="GJ01AB1234"><button id="trace-entity-button">Trace</button></div></div></div>
+        <div class="map-layout"><article class="panel full-map-panel"><div id="main-map" class="main-map"></div><div class="map-controls"><button class="map-control active" data-map-filter="all">All</button><button class="map-control" data-map-filter="ONLINE">Online</button><button class="map-control" data-map-filter="DEGRADED">Degraded</button><button class="map-control" data-map-filter="OFFLINE">Offline</button></div></article><aside class="panel route-panel"><div class="panel-heading"><div><p class="eyebrow">ENTITY TRACE</p><h3 id="trace-title">GJ01AB1234</h3></div><span class="tag purple" id="trace-count">0 points</span></div><div id="route-summary" class="route-summary"></div><div id="route-timeline" class="route-timeline"></div></aside></div>
+      </section>
+
+      <section id="view-events" class="view">
+        <div class="page-heading"><div><p class="eyebrow">AI ANALYTICS · EVENT BUS</p><h2>Analytics events<span class="heading-accent">.</span></h2><p class="heading-copy">Validated inference results, temporal search, and idempotent ingestion.</p></div><div class="heading-actions"><button class="button ghost" id="event-api-button">View API schema</button><button class="button primary" id="event-simulate-button">＋ Emit sample event</button></div></div>
+        <div class="event-summary-grid"><div class="event-summary"><span class="summary-icon blue">◉</span><div><strong>ANPR</strong><small>plate recognition</small></div><b id="event-anpr-count">—</b></div><div class="event-summary"><span class="summary-icon green">▣</span><div><strong>Vehicle</strong><small>detections</small></div><b id="event-vehicle-count">—</b></div><div class="event-summary"><span class="summary-icon amber">◎</span><div><strong>Matched</strong><small>watchlist events</small></div><b id="event-match-count">—</b></div><div class="event-summary"><span class="summary-icon purple">↗</span><div><strong>Latency</strong><small>last ingestion</small></div><b id="event-latency">—</b></div></div>
+        <div class="toolbar panel"><div class="filter-search"><span>⌕</span><input id="event-search" placeholder="Search plate, event type or camera"></div><select id="event-type-filter"><option value="">All event types</option><option value="ANPR">ANPR</option><option value="VEHICLE_DETECTION">Vehicle detection</option><option value="PERSON_DETECTION">Person detection</option></select><button class="button subtle" id="event-refresh">↻ Refresh</button></div>
+        <div class="panel table-panel"><div id="event-table" class="data-table event-table"></div></div>
+      </section>
+
+      <section id="view-alerts" class="view">
+        <div class="page-heading"><div><p class="eyebrow">WATCHLIST CORRELATION · RESPONSE</p><h2>Alert center<span class="heading-accent">.</span></h2><p class="heading-copy">Triage real-time matches with acknowledgement and resolution audit trails.</p></div><div class="heading-actions"><select id="alert-status-filter" class="heading-select"><option value="">All alert states</option><option value="OPEN">Open</option><option value="ACKNOWLEDGED">Acknowledged</option><option value="RESOLVED">Resolved</option></select><button class="button primary" id="alert-simulate-button">＋ Generate test alert</button></div></div>
+        <div class="alert-banner"><span class="banner-icon">!</span><div><strong>Real-time correlation is active</strong><p>New analytics events are checked against active watchlist records and pushed to this console instantly.</p></div><span class="live-indicator"><i></i> WEBSOCKET</span></div>
+        <div class="alert-kpi-row"><div><span>Open now</span><strong id="alert-kpi-open">—</strong></div><div><span>Critical</span><strong class="danger-text" id="alert-kpi-critical">—</strong></div><div><span>Acknowledged</span><strong id="alert-kpi-ack">—</strong></div><div><span>Resolved today</span><strong id="alert-kpi-resolved">—</strong></div></div>
+        <div class="panel table-panel"><div id="alert-table" class="data-table alert-table"></div></div>
+      </section>
+
+      <section id="view-watchlist" class="view">
+        <div class="page-heading"><div><p class="eyebrow">ENTITY OF INTEREST · GOVERNANCE</p><h2>Watchlist<span class="heading-accent">.</span></h2><p class="heading-copy">Manage synthetic, legally usable records that drive automated correlation.</p></div><div class="heading-actions"><button class="button primary" id="add-watchlist-button">＋ Add record</button></div></div>
+        <div class="watchlist-callout"><span class="callout-mark">◎</span><div><strong>Synthetic demonstration dataset</strong><p>All seeded records are fictional and exist only to demonstrate the correlation workflow. Replace them with approved, access-controlled source data in production.</p></div><span class="tag green">3 active records</span></div>
+        <div class="toolbar panel"><div class="filter-search"><span>⌕</span><input id="watchlist-search" placeholder="Search identifier, name or reason"></div><select id="watchlist-type-filter"><option value="">All entity types</option><option value="VEHICLE">Vehicle</option><option value="PERSON">Person</option><option value="OBJECT">Object</option></select></div>
+        <div class="panel table-panel"><div id="watchlist-table" class="data-table watchlist-table"></div></div>
+      </section>
+
+      <section id="view-architecture" class="view">
+        <div class="page-heading"><div><p class="eyebrow">DELIVERY NOTES · OPERATING MODEL</p><h2>Architecture brief<span class="heading-accent">.</span></h2><p class="heading-copy">The prototype is a hybrid registry, unified viewing, analytics, and alert workflow.</p></div><div class="heading-actions"><a class="button ghost" href="/docs" target="_blank">Open API docs ↗</a></div></div>
+        <div class="architecture-cards"><article class="panel architecture-card"><span class="arch-number">01</span><h3>Registry first</h3><p>Camera metadata is normalized into one auditable asset layer. The same registry powers health, GIS, routing, and adapter selection.</p><a href="/delivery/ARCHITECTURE.md">Read architecture ↗</a></article><article class="panel architecture-card"><span class="arch-number">02</span><h3>Adapter-based feeds</h3><p>RTSP and ONVIF are represented by separate adapters. Production adapters can exchange credentials at the gateway and return WebRTC/HLS.</p><a href="/delivery/INTEGRATION.md">Read integration notes ↗</a></article><article class="panel architecture-card"><span class="arch-number">03</span><h3>Event-first alerts</h3><p>Idempotent event ingestion validates source identity, stores inference metadata, correlates normalized identifiers, and broadcasts only after commit.</p><a href="/delivery/API.md">Read API workflow ↗</a></article></div>
+        <article class="panel scale-card"><div><p class="eyebrow">PATH TO 80,000 CAMERAS</p><h3>Edge first, central intelligence second.</h3><p>Regional gateways can normalize vendor protocols and run low-cost detection. Central services scale horizontally behind a queue, with PostgreSQL/PostGIS and object storage replacing the SQLite prototype store.</p></div><div class="scale-steps"><span><b>01</b>Federate</span><span><b>02</b>Observe</span><span><b>03</b>Correlate</span><span><b>04</b>Respond</span></div></article>
+      </section>
+    </main>
+  </div>
+
+  <div id="camera-modal" class="modal-backdrop hidden"><div class="modal-card"><div class="modal-heading"><div><p class="eyebrow">REGISTRY ONBOARDING</p><h3 id="camera-modal-title">Add camera source</h3></div><button class="icon-button modal-close" data-close-modal="camera-modal">×</button></div><form id="camera-form" class="modal-form"><input type="hidden" id="camera-edit-id"><div class="form-grid"><label>Camera ID<input id="camera-id-input" required pattern="[A-Za-z0-9_-]+"></label><label>Display name<input id="camera-name-input" required></label><label>Department<input id="camera-department-input" required></label><label>Zone<input id="camera-zone-input" required></label><label>Latitude<input id="camera-latitude-input" type="number" step="any" required></label><label>Longitude<input id="camera-longitude-input" type="number" step="any" required></label><label>Camera type<input id="camera-type-input" required></label><label>Source protocol<select id="camera-protocol-input"><option value="RTSP">RTSP</option><option value="ONVIF">ONVIF</option><option value="HLS">HLS</option><option value="VENDOR_API">Vendor API</option></select></label><label class="span-two">Stream endpoint reference<input id="camera-stream-input" required placeholder="sim://rtsp/site/camera or secret-free reference"></label><label>Storage provider<input id="camera-storage-input"></label><label>Retention days<input id="camera-retention-input" type="number" min="1" max="3650"></label></div><div class="form-actions"><button type="button" class="button ghost" data-close-modal="camera-modal">Cancel</button><button class="button primary" type="submit">Save source</button></div></form></div></div>
+
+  <div id="watchlist-modal" class="modal-backdrop hidden"><div class="modal-card"><div class="modal-heading"><div><p class="eyebrow">ENTITY GOVERNANCE</p><h3>Add watchlist record</h3></div><button class="icon-button modal-close" data-close-modal="watchlist-modal">×</button></div><form id="watchlist-form" class="modal-form"><div class="form-grid"><label>Entity type<select id="watchlist-type-input"><option value="VEHICLE">Vehicle</option><option value="PERSON">Person</option><option value="OBJECT">Object</option></select></label><label>Severity<select id="watchlist-severity-input"><option value="CRITICAL">Critical</option><option value="HIGH">High</option><option value="MEDIUM">Medium</option><option value="LOW">Low</option></select></label><label class="span-two">Identifier<input id="watchlist-identifier-input" required placeholder="GJ01AB1234 or PERSON-0042"></label><label class="span-two">Display name<input id="watchlist-name-input" required></label><label class="span-two">Reason<input id="watchlist-reason-input" required></label><label>Department<input id="watchlist-department-input"></label></div><div class="form-actions"><button type="button" class="button ghost" data-close-modal="watchlist-modal">Cancel</button><button class="button primary" type="submit">Add to watchlist</button></div></form></div></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+services:
+  okdriver:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      APP_NAME: okDriver Smart CCTV
+      ENVIRONMENT: development
+      DATABASE_URL: sqlite:////data/okdriver.db
+      SECRET_KEY: ${SECRET_KEY:-replace-this-compose-secret}
+      ANALYTICS_API_KEY: ${ANALYTICS_API_KEY:-}
+      COOKIE_SECURE: "false"
+      SIMULATOR_ENABLED: ${SIMULATOR_ENABLED:-true}
+      SIMULATOR_INTERVAL_SECONDS: ${SIMULATOR_INTERVAL_SECONDS:-20}
+      HEARTBEAT_ENABLED: ${HEARTBEAT_ENABLED:-true}
+      HEARTBEAT_INTERVAL_SECONDS: ${HEARTBEAT_INTERVAL_SECONDS:-30}
+      SEED_DEMO_DATA: ${SEED_DEMO_DATA:-true}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8000}
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-120}
+      MAP_TILE_URL: "${MAP_TILE_URL:-https://tile.openstreetmap.org/{z}/{x}/{y}.png}"
+      MAP_ATTRIBUTION: '${MAP_ATTRIBUTION:-&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> · <a href="https://www.openstreetmap.org/fixthemap" target="_blank" rel="noopener">Report a map issue</a>}'
+      MAP_MAX_ZOOM: "${MAP_MAX_ZOOM:-19}"
+    volumes:
+      - okdriver_data:/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/system/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  okdriver_data:

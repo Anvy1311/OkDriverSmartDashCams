@@ -1,0 +1,51 @@
+camera_id,name,department,latitude,longitude,camera_type,source_protocol,stream_endpoint,status,zone,storage_provider,storage_bucket,storage_retention_days,enabled
+C101,West Ahmedabad Camera 01,City Police,23.0225,72.5714,ANPR_FIXED,RTSP,sim://rtsp/west/001,ONLINE,West Ahmedabad,Regional object store,cctv-west-hot,15,true
+C102,West Ahmedabad Camera 02,City Police,23.0284,72.5650,ANPR_FIXED,ONVIF,sim://onvif/west/002,ONLINE,West Ahmedabad,Regional object store,cctv-west-hot,15,true
+C103,West Ahmedabad Camera 03,City Police,23.0351,72.5811,VEHICLE_DETECTION,RTSP,sim://rtsp/west/003,ONLINE,West Ahmedabad,Regional object store,cctv-west-hot,15,true
+C104,West Ahmedabad Camera 04,City Police,23.0412,72.5902,PTZ_DOME,ONVIF,sim://onvif/west/004,ONLINE,West Ahmedabad,Regional object store,cctv-west-hot,15,true
+C105,West Ahmedabad Camera 05,Municipal Corporation,23.0477,72.5994,FIXED_DOME,RTSP,sim://rtsp/west/005,ONLINE,West Ahmedabad,Edge NAS,edge-nas-west,7,true
+C106,West Ahmedabad Camera 06,Municipal Corporation,23.0536,72.6078,FIXED_DOME,ONVIF,sim://onvif/west/006,ONLINE,West Ahmedabad,Edge NAS,edge-nas-west,7,true
+C107,RTO East Camera 01,Transport Department,23.0451,72.6498,ANPR_FIXED,ONVIF,sim://onvif/rto/001,ONLINE,RTO East,Department NVR,rto-nvr-02,30,true
+C108,RTO East Camera 02,Transport Department,23.0502,72.6584,PTZ_DOME,RTSP,sim://rtsp/rto/002,ONLINE,RTO East,Department NVR,rto-nvr-02,30,true
+C109,RTO East Camera 03,Transport Department,23.0550,72.6671,VEHICLE_DETECTION,ONVIF,sim://onvif/rto/003,ONLINE,RTO East,Department NVR,rto-nvr-02,30,true
+C110,RTO East Camera 04,Transport Department,23.0611,72.6764,ANPR_FIXED,RTSP,sim://rtsp/rto/004,ONLINE,RTO East,Department NVR,rto-nvr-02,30,true
+C111,Sabarmati Camera 01,Municipal Corporation,23.0608,72.5809,VEHICLE_DETECTION,RTSP,sim://rtsp/sabarmati/001,ONLINE,Sabarmati Corridor,Edge NAS,edge-nas-west,7,true
+C112,Sabarmati Camera 02,Municipal Corporation,23.0664,72.5884,FIXED_DOME,ONVIF,sim://onvif/sabarmati/002,ONLINE,Sabarmati Corridor,Edge NAS,edge-nas-west,7,true
+C113,Sabarmati Camera 03,Municipal Corporation,23.0722,72.5960,PTZ_DOME,RTSP,sim://rtsp/sabarmati/003,ONLINE,Sabarmati Corridor,Edge NAS,edge-nas-west,7,true
+C114,Sabarmati Camera 04,Municipal Corporation,23.0780,72.6043,ANPR_FIXED,ONVIF,sim://onvif/sabarmati/004,ONLINE,Sabarmati Corridor,Edge NAS,edge-nas-west,7,true
+C115,Gandhinagar Camera 01,Home Department,23.2235,72.6497,FIXED_DOME,ONVIF,sim://onvif/gandhinagar/001,ONLINE,Gandhinagar North,Regional object store,cctv-north-hot,15,true
+C116,Gandhinagar Camera 02,Home Department,23.2292,72.6571,PTZ_DOME,RTSP,sim://rtsp/gandhinagar/002,ONLINE,Gandhinagar North,Regional object store,cctv-north-hot,15,true
+C117,Gandhinagar Camera 03,Home Department,23.2350,72.6652,ANPR_FIXED,ONVIF,sim://onvif/gandhinagar/003,ONLINE,Gandhinagar North,Regional object store,cctv-north-hot,15,true
+C118,Gandhinagar Camera 04,Home Department,23.2404,72.6738,FIXED_DOME,RTSP,sim://rtsp/gandhinagar/004,ONLINE,Gandhinagar North,Regional object store,cctv-north-hot,15,true
+C119,Gandhinagar Camera 05,Home Department,23.2471,72.6810,VEHICLE_DETECTION,ONVIF,sim://onvif/gandhinagar/005,ONLINE,Gandhinagar North,Regional object store,cctv-north-hot,15,true
+C120,Gandhinagar Camera 06,Home Department,23.2532,72.6892,PTZ_DOME,RTSP,sim://rtsp/gandhinagar/006,ONLINE,Gandhinagar North,Regional object store,cctv-north-hot,15,true
+C121,South Ahmedabad Camera 01,Traffic Police,23.0521,72.5324,ANPR_FIXED,RTSP,sim://rtsp/south/001,ONLINE,South Ahmedabad,Regional object store,cctv-south-hot,15,true
+C122,South Ahmedabad Camera 02,Traffic Police,23.0580,72.5398,ANPR_FIXED,ONVIF,sim://onvif/south/002,ONLINE,South Ahmedabad,Regional object store,cctv-south-hot,15,true
+C123,South Ahmedabad Camera 03,Traffic Police,23.0642,72.5471,VEHICLE_DETECTION,RTSP,sim://rtsp/south/003,ONLINE,South Ahmedabad,Regional object store,cctv-south-hot,15,true
+C124,South Ahmedabad Camera 04,Traffic Police,23.0701,72.5546,PTZ_DOME,ONVIF,sim://onvif/south/004,ONLINE,South Ahmedabad,Regional object store,cctv-south-hot,15,true
+C125,South Ahmedabad Camera 05,Traffic Police,23.0760,72.5612,FIXED_DOME,RTSP,sim://rtsp/south/005,ONLINE,South Ahmedabad,Regional object store,cctv-south-hot,15,true
+C126,South Ahmedabad Camera 06,Traffic Police,23.0823,72.5694,ANPR_FIXED,ONVIF,sim://onvif/south/006,ONLINE,South Ahmedabad,Regional object store,cctv-south-hot,15,true
+C127,East Ahmedabad Camera 01,Food & Civil Supplies,22.9925,72.3812,FIXED_DOME,ONVIF,sim://onvif/east/001,OFFLINE,East Ahmedabad,Department NVR,pds-nvr-01,30,true
+C128,East Ahmedabad Camera 02,Food & Civil Supplies,22.9981,72.3890,PTZ_DOME,RTSP,sim://rtsp/east/002,ONLINE,East Ahmedabad,Department NVR,pds-nvr-01,30,true
+C129,East Ahmedabad Camera 03,Food & Civil Supplies,23.0040,72.3964,FIXED_DOME,ONVIF,sim://onvif/east/003,ONLINE,East Ahmedabad,Department NVR,pds-nvr-01,30,true
+C130,East Ahmedabad Camera 04,Food & Civil Supplies,23.0102,72.4041,ANPR_FIXED,RTSP,sim://rtsp/east/004,ONLINE,East Ahmedabad,Department NVR,pds-nvr-01,30,true
+C131,East Ahmedabad Camera 05,Food & Civil Supplies,23.0164,72.4119,PTZ_DOME,ONVIF,sim://onvif/east/005,DEGRADED,East Ahmedabad,Department NVR,pds-nvr-01,30,true
+C132,East Ahmedabad Camera 06,Food & Civil Supplies,23.0222,72.4195,FIXED_DOME,RTSP,sim://rtsp/east/006,ONLINE,East Ahmedabad,Department NVR,pds-nvr-01,30,true
+C133,Vadodara Camera 01,City Police,22.3072,73.1812,ANPR_FIXED,ONVIF,sim://onvif/vadodara/001,ONLINE,Central Gujarat,Regional object store,cctv-central-hot,15,true
+C134,Vadodara Camera 02,City Police,22.3130,73.1880,PTZ_DOME,RTSP,sim://rtsp/vadodara/002,ONLINE,Central Gujarat,Regional object store,cctv-central-hot,15,true
+C135,Vadodara Camera 03,Municipal Corporation,22.3190,73.1952,VEHICLE_DETECTION,ONVIF,sim://onvif/vadodara/003,ONLINE,Central Gujarat,Regional object store,cctv-central-hot,15,true
+C136,Vadodara Camera 04,Municipal Corporation,22.3254,73.2021,FIXED_DOME,RTSP,sim://rtsp/vadodara/004,ONLINE,Central Gujarat,Regional object store,cctv-central-hot,15,true
+C137,Surat Camera 01,Traffic Police,20.9020,72.8310,ANPR_FIXED,ONVIF,sim://onvif/surat/001,ONLINE,South Gujarat,Regional object store,cctv-south-gujarat-hot,15,true
+C138,Surat Camera 02,Traffic Police,20.9081,72.8393,PTZ_DOME,RTSP,sim://rtsp/surat/002,ONLINE,South Gujarat,Regional object store,cctv-south-gujarat-hot,15,true
+C139,Surat Camera 03,Municipal Corporation,20.9145,72.8470,VEHICLE_DETECTION,ONVIF,sim://onvif/surat/003,ONLINE,South Gujarat,Regional object store,cctv-south-gujarat-hot,15,true
+C140,Surat Camera 04,Municipal Corporation,20.9204,72.8548,FIXED_DOME,RTSP,sim://rtsp/surat/004,ONLINE,South Gujarat,Regional object store,cctv-south-gujarat-hot,15,true
+C141,Rajkot Camera 01,City Police,22.3039,70.8022,ANPR_FIXED,RTSP,sim://rtsp/rajkot/001,ONLINE,Rajkot Region,Regional object store,cctv-rajkot-hot,15,true
+C142,Rajkot Camera 02,City Police,22.3098,70.8104,PTZ_DOME,ONVIF,sim://onvif/rajkot/002,ONLINE,Rajkot Region,Regional object store,cctv-rajkot-hot,15,true
+C143,Rajkot Camera 03,Home Department,22.3157,70.8181,VEHICLE_DETECTION,RTSP,sim://rtsp/rajkot/003,ONLINE,Rajkot Region,Regional object store,cctv-rajkot-hot,15,true
+C144,Rajkot Camera 04,Home Department,22.3216,70.8262,FIXED_DOME,ONVIF,sim://onvif/rajkot/004,ONLINE,Rajkot Region,Regional object store,cctv-rajkot-hot,15,true
+C145,Vadodara Depot Camera 01,Food & Civil Supplies,22.2650,73.1601,FIXED_DOME,RTSP,sim://rtsp/depot/001,ONLINE,Central Gujarat,Department NVR,pds-central-01,30,true
+C146,Vadodara Depot Camera 02,Food & Civil Supplies,22.2710,73.1680,PTZ_DOME,ONVIF,sim://onvif/depot/002,ONLINE,Central Gujarat,Department NVR,pds-central-01,30,true
+C147,Surat Depot Camera 01,Food & Civil Supplies,20.8750,72.8200,FIXED_DOME,ONVIF,sim://onvif/depot/003,ONLINE,South Gujarat,Department NVR,pds-south-01,30,true
+C148,Surat Depot Camera 02,Food & Civil Supplies,20.8810,72.8280,PTZ_DOME,RTSP,sim://rtsp/depot/004,ONLINE,South Gujarat,Department NVR,pds-south-01,30,true
+C149,Rajkot Depot Camera 01,Food & Civil Supplies,22.2780,70.7900,FIXED_DOME,ONVIF,sim://onvif/depot/005,ONLINE,Rajkot Region,Department NVR,pds-rajkot-01,30,true
+C150,Rajkot Depot Camera 02,Food & Civil Supplies,22.2840,70.7980,PTZ_DOME,RTSP,sim://rtsp/depot/006,ONLINE,Rajkot Region,Department NVR,pds-rajkot-01,30,true

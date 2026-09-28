@@ -1,0 +1,32 @@
+[
+  {
+    "entity_type": "VEHICLE",
+    "identifier": "GJ01AB1234",
+    "display_name": "Synthetic stolen vehicle",
+    "reason": "Representative stolen-vehicle record for the prototype",
+    "severity": "CRITICAL",
+    "department": "City Police",
+    "active": true,
+    "extra_data": {"case_reference": "SYN-2026-001", "source": "synthetic"}
+  },
+  {
+    "entity_type": "VEHICLE",
+    "identifier": "GJ01CD9012",
+    "display_name": "Synthetic blacklisted vehicle",
+    "reason": "Representative blacklisted vehicle for correlation testing",
+    "severity": "HIGH",
+    "department": "Transport Department",
+    "active": true,
+    "extra_data": {"case_reference": "SYN-2026-002", "source": "synthetic"}
+  },
+  {
+    "entity_type": "PERSON",
+    "identifier": "PERSON-0042",
+    "display_name": "Synthetic wanted person",
+    "reason": "Representative person-of-interest record",
+    "severity": "HIGH",
+    "department": "Home Department",
+    "active": true,
+    "extra_data": {"case_reference": "SYN-2026-003", "source": "synthetic"}
+  }
+]
